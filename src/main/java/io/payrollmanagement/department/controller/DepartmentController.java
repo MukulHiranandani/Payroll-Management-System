@@ -8,12 +8,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import io.payrollmanagement.department.Department;
+import io.payrollmanagement.department.proxy.DepartmentProxy;
 import io.payrollmanagement.dto.Request;
 import io.payrollmanagement.dto.Response;
 import io.payrollmanagement.service.DepartmentService;
 
 @RestController
 public class DepartmentController  {
+	@Autowired
+	private DepartmentProxy proxy;
 		@Autowired
 		private DepartmentService departmentService;
 
@@ -50,5 +53,10 @@ public class DepartmentController  {
 		return departmentService.getActiveDepartment();
 		}
 		
+		@RequestMapping("/department-feign/{id}")
+		public Response getDepartmentfeign(@PathVariable String id) {
+			return departmentService.getDepartment(id);
+		}
+		Response response =proxy.getEmployee(null);
 }
 
